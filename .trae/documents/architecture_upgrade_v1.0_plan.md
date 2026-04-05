@@ -101,8 +101,6 @@
   - `GET /api/orders/:id` - 订单详情
   - `PUT /api/orders/:id/status` - 更新订单状态
 
-
-
 #### 2.2.2 营销服务 (marketing-service)
 
 - **职责**:
@@ -118,6 +116,14 @@
   - 支付B端：支付配置
   - 支付模型：支付流水、退款记录
   - 支付工具：回调处理、状态同步
+- **API接口**:
+  - `POST /api/pay/create_pay` - 创建支付订单
+  - `POST /api/pay/notify_pay` - 支付回调
+  - `POST /api/pay/refund` - 退款申请
+  - `POST /api/pay/notify_refund` - 退款回调
+  - `GET /api/pay/pay_status` - 查询支付状态
+  - `GET /api/pay/refund_status` - 查询退款状态
+  - `GET /api/pay/records` - 查询支付记录
 
 #### 2.2.3 资金服务 (fund-service)
 
@@ -134,6 +140,8 @@
   - 物流状态跟踪
   - 物流服务商对接
   - 发货管理
+- **API接口**:
+  - `POST /api/logistics/query` - 查询物流状态
 
 #### 2.2.6 治理服务 (governance-service)
 
@@ -142,7 +150,8 @@
   - 审核管理
   - 数据统计
   - 系统监控
-
+- **API接口**:
+  - `GET /api/governance/check_risk` - 检查风险
 ---
 
 ### 2.3 后端目录结构
@@ -228,7 +237,6 @@ trae_using_demo/
 #### 交易服务数据库 (order.db)
 - `carts` - 购物车表
 - `orders` - 订单表
-- `order_items` - 订单详情表
 
 ---
 

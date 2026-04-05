@@ -22,7 +22,7 @@
 
 ### 2.1 微服务划分
 
-按业务领域划分为3个核心微服务：
+按业务领域划分为核心微服务（V1.0版本实现）和扩展服务（后续版本）：
 
 #### 2.1.1 用户服务 (user-service)
 
@@ -31,8 +31,14 @@
   - 用户注册/登录
   - JWT Token生成和验证
   - 用户信息管理
+  - 密码安全（bcrypt加密）
 - **数据库**: users.db (SQLite)
 - **数据表**: users
+- **API接口**:
+  - `POST /api/auth/register` - 用户注册
+  - `POST /api/auth/login` - 用户登录
+  - `GET /api/users/profile` - 获取用户信息
+  - `PUT /api/users/profile` - 更新用户信息
 
 #### 2.1.2 商家商品服务 (product-service)
 
@@ -40,126 +46,213 @@
 - **职责**:
   - 商家入驻和管理
   - 商品发布和管理
-  - 商品列表和详情查询
+  - 商品列表和详情查询（公开访问）
   - 库存管理
-- **数据库**: product.db (SQLite)
+- **数据库**: merchant.db, product.db (SQLite)
 - **数据表**: merchants, products
+- **API接口**:
+  - `POST /api/merchants` - 商家入驻
+  - `GET /api/merchants` - 商家列表
+  - `GET /api/merchants/:id` - 商家详情
+  - `PUT /api/merchants/:id` - 更新商家信息
+  - `POST /api/products` - 发布商品
+  - `GET /api/products` - 商品列表（公开）
+  - `GET /api/products/:id` - 商品详情（公开）
+  - `PUT /api/products/:id` - 更新商品
+  - `DELETE /api/products/:id` - 删除商品
 
-#### 2.1.3 导购服务 (guide-service)
+#### 2.2.1 导购服务 (guide-service)
 
 - **职责**:
-  - 搜索
-  - 推荐
-  - PDP
-  - 商城
+  - 商品搜索
+  - 商品推荐
+  - PDP（商品详情页聚合）
+  - 商城首页聚合
 - **数据库**: product.db (SQLite)
-- **数据表**: products
+- **数据表**: products（只读）
 
 #### 2.1.3 交易服务 (trade-service)
 
-cart 
-buy
-order
-
 - **端口**: 8083
 - **职责**:
-  - cart
+  - **cart（购物车域）**
     - 购物车管理
     - 商品添加、删除、修改数量
-  - buy
+  - **buy（购买域）**
     - 购买商品
-    - 订单创建
-  - order
-    - 交易流程：订单支付、订单履约
+    - 订单创建（事务处理）
+    - 库存扣减
+  - **order（订单域）**
     - 订单模型
     - 订单管理：C端查单、B端查单
-  - reverse
+    - 订单状态流转
+  - **reverse（售后域，V1.0预留）**
     - 售后
     - 逆向
 - **数据库**: order.db (SQLite)
-- **数据表**: carts, orders, order\_items
+- **数据表**: carts, orders, order_items
+- **API接口**:
+  - `POST /api/cart` - 添加商品到购物车
+  - `GET /api/cart` - 获取购物车
+  - `PUT /api/cart/:id` - 更新购物车商品数量
+  - `DELETE /api/cart/:id` - 删除购物车商品
+  - `POST /api/orders` - 创建订单
+  - `GET /api/orders` - 订单列表
+  - `GET /api/orders/:id` - 订单详情
+  - `PUT /api/orders/:id/status` - 更新订单状态
 
-#### 2.1.3 营销服务 (marketing-service)
 
-- **职责**:
-  - 营销C：
-  - 营销B：
-  - 营销模型： 
-  - 营销工具： 
 
-#### 2.1.3 资金服务 (fund-service)
-
-结算
-税费
-
-#### 2.1.3 支付服务 (payment-service)
+#### 2.2.2 营销服务 (marketing-service)
 
 - **职责**:
-  - 支付C：
-  - 支付B：
-  - 支付模型： 
-  - 支付工具： 
+  - 营销C端：优惠券、满减、秒杀
+  - 营销B端：营销活动配置
+  - 营销模型：优惠券、活动规则
+  - 营销工具：活动创建、数据统计
 
-#### 2.1.3 物流服务 (logistcs-service)
+#### 2.2.4 支付服务 (payment-service)
 
-#### 2.1.3 治理服务 (government-service)
-
-#### 2.1.4 API网关 (api-gateway)
-
-- **端口**: 8080
 - **职责**:
-  - 请求路由和转发
-  - 统一认证验证
-  - CORS处理
-  - 统一错误响应
-- **路由规则**:
-  - `/api/auth/*` → user-service:8081
-  - `/api/merchants/*` → product-service:8082
-  - `/api/products/*` → product-service:8082
-  - `/api/cart/*` → order-service:8083
-  - `/api/orders/*` → order-service:8083
+  - 支付C端：支付渠道集成
+  - 支付B端：支付配置
+  - 支付模型：支付流水、退款记录
+  - 支付工具：回调处理、状态同步
 
-### 2.2 后端目录结构
+#### 2.2.3 资金服务 (fund-service)
+
+- **职责**:
+  - 结算管理
+  - 税费计算
+  - 资金流水
+  - 财务报表
+
+#### 2.2.5 物流服务 (logistics-service)
+
+- **职责**:
+  - 物流单号管理
+  - 物流状态跟踪
+  - 物流服务商对接
+  - 发货管理
+
+#### 2.2.6 治理服务 (governance-service)
+
+- **职责**:
+  - 风控管理
+  - 审核管理
+  - 数据统计
+  - 系统监控
+
+---
+
+### 2.3 后端目录结构
 
 ```
 trae_using_demo/
-├── domain-services/                    # 微服务目录
+├── domain-services/              # 微服务目录
 │   ├── api-gateway/            # API网关
 │   │   ├── cmd/gateway/
-│   │   ├── internal/handler/
-│   │   ├── internal/middleware/
+│   │   │   └── main.go
+│   │   ├── internal/
+│   │   │   ├── handler/
+│   │   │   ├── proxy/         # 反向代理
+│   │   │   └── middleware/
 │   │   ├── pkg/
 │   │   └── go.mod
 │   ├── user-service/           # 用户服务
 │   │   ├── cmd/server/
-│   │   ├── internal/handler/
-│   │   ├── internal/service/
-│   │   ├── internal/repository/
-│   │   ├── internal/model/
+│   │   │   └── main.go
+│   │   ├── internal/
+│   │   │   ├── handler/
+│   │   │   ├── service/
+│   │   │   ├── repository/
+│   │   │   └── model/
 │   │   ├── pkg/
 │   │   └── go.mod
-│   ├── product-service/        # 商品商家服务
+│   ├── product-service/        # 商家商品服务
 │   │   ├── cmd/server/
-│   │   ├── internal/handler/
-│   │   ├── internal/service/
-│   │   ├── internal/repository/
-│   │   ├── internal/model/
+│   │   │   └── main.go
+│   │   ├── internal/
+│   │   │   ├── handler/
+│   │   │   ├── service/
+│   │   │   ├── repository/
+│   │   │   └── model/
 │   │   ├── pkg/
 │   │   └── go.mod
-│   └── order-service/          # 订单购物车服务
-│   | ├── cmd/server/
-│   |   ├── internal/handler/
-│   |   ├── internal/service/
-│   |   ├── internal/repository/
-│   |   ├── internal/model/
-│   |   ├── pkg/
-│   |    └── go.mod
+│   └── trade-service/          # 交易服务
+│       ├── cmd/server/
+│       │   └── main.go
+│       ├── internal/
+│       │   ├── handler/
+│       │   ├── service/
+│       │   │   ├── cart/       # 购物车域
+│       │   │   ├── buy/        # 购买域
+│       │   │   └── order/      # 订单域
+│       │   ├── repository/
+│       │   └── model/
+│       ├── pkg/
+│       └── go.mod
+├── shared/                     # 共享代码库
+│   ├── go/
+│   │   ├── pkg/
+│   │   │   ├── response/      # 统一响应格式
+│   │   │   ├── utils/         # 工具函数
+│   │   │   └── constants/     # 常量定义
+│   │   └── go.mod
+│   └── proto/                 # 服务间通信定义（可选）
+└── docs/                       # 文档
 ```
 
-### 2.3 服务间通信
+---
 
-- **同步通信**: HTTP REST API（简化版本）
+### 2.4 服务间通信
+
+- **同步通信**: HTTP REST API（V1.0简化版本）
 - **数据一致性**: 最终一致性，每个服务独立管理自己的数据
+- **服务发现**: 静态配置（V1.0），后续可引入服务注册中心
+- **容错机制**: 超时控制、重试机制（后续版本）
+
+---
+
+### 2.5 数据库设计
+
+每个微服务拥有独立的数据库，按业务域隔离：
+
+#### 用户服务数据库 (users.db)
+- `users` - 用户表
+
+#### 商家商品服务数据库 (product.db)
+- `merchants` - 商家表
+- `products` - 商品表
+
+#### 交易服务数据库 (order.db)
+- `carts` - 购物车表
+- `orders` - 订单表
+- `order_items` - 订单详情表
+
+---
+
+### 2.6 部署架构
+
+```
+                    ┌─────────────┐
+                    │   客户端     │
+                    └──────┬──────┘
+                           │
+                    ┌──────▼──────┐
+                    │  API网关     │ (8080)
+                    └──────┬──────┘
+           ┌───────────────┼───────────────┐
+    ┌──────▼──────┐  ┌───▼────┐  ┌─────▼──────┐
+    │ 用户服务     │  │商家商品 │  │  交易服务   │
+    │  (8081)     │  │ (8082)  │  │   (8083)   │
+    └──────┬──────┘  └───┬────┘  └─────┬──────┘
+           │               │               │
+    ┌──────▼──────┐  ┌───▼────┐  ┌─────▼──────┐
+    │ users.db    │  │product. │  │  order.db  │
+    └─────────────┘  │  db     │  └────────────┘
+                     └─────────┘
+```
 
 ***
 

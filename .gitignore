@@ -1,3 +1,6 @@
 ./backend/bin/*
 ./frontend/node_modules/*
 ./backend/ecommerce.db
+./backend-legacy/
+./frontend-legacy/
+ARCHITECTURE_UPGRADE_SUMMARY.md

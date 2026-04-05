@@ -1,16 +1,16 @@
-# E-Commerce Platform
+# E-Commerce Platform v4.0
 
-A complete e-commerce trading platform developed from scratch, adopting a frontend-backend separated architecture.
+A complete e-commerce trading platform with microservices architecture and frontend Monorepo, now upgraded to Platform v4.0 with SPI extension framework.
 
 ## Tech Stack
 
 ### Backend
-- **Language**: Golang
+- **Language**: Golang 1.21+
 - **Web Framework**: Hertz
 - **ORM**: GORM
 - **Database**: SQLite
 - **Authentication**: JWT
-- **Password Encryption**: bcrypt
+- **Architecture**: Microservices + SPI Extension Framework
 
 ### Frontend
 - **Framework**: React 18
@@ -19,95 +19,181 @@ A complete e-commerce trading platform developed from scratch, adopting a fronte
 - **HTTP Client**: Axios
 - **Build Tool**: Vite
 - **Language**: TypeScript
+- **Package Manager**: pnpm
+- **Architecture**: Monorepo
 
 ## Project Structure
 
 ```
 trae_using_demo/
-├── backend/              # Backend service
-│   ├── cmd/             # Application entry point
-│   │   └── server/
-│   ├── internal/        # Internal code
-│   │   ├── handler/     # HTTP handlers
-│   │   ├── service/     # Business logic layer
-│   │   ├── repository/  # Data access layer
-│   │   ├── model/       # Data models
-│   │   └── middleware/  # Middleware
-│   ├── pkg/             # Public packages
-│   │   ├── response/    # Unified response format
-│   │   └── utils/       # Utility functions
-│   ├── bin/             # Compiled output
-│   └── go.mod
-├── frontend/            # Frontend application
-│   ├── src/
-│   │   ├── components/  # Public components
-│   │   ├── pages/       # Page components
-│   │   ├── services/    # API services
-│   │   ├── store/       # State management
-│   │   ├── types/       # TypeScript types
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   └── package.json
+├── domain-services/
+│   ├── api-gateway/              # API Gateway (Port 8080)
+│   │   ├── cmd/server/
+│   │   ├── internal/proxy/
+│   │   └── go.mod
+│   ├── common/                   # Common packages
+│   │   └── go/pkg/
+│   │       ├── identity/         # Business Identity abstraction
+│   │       ├── spi/              # SPI Extension Framework
+│   │       ├── response/
+│   │       └── utils/
+│   ├── platform/                 # Platform Core Services (v4.0)
+│   │   ├── user-service/         # Port 9081 (planned)
+│   │   ├── product-service/      # Port 9082 (planned)
+│   │   └── trade-service/        # Port 9083 (planned)
+│   └── extensions/               # Business Extensions
+│       ├── id-market/            # Indonesia Market
+│       ├── us-market/            # US Market
+│       ├── pre-sale/             # Pre-Sale Feature
+│       └── auction/              # Live Auction Feature
+├── frontend/                     # Frontend Monorepo
+│   ├── apps/web/                 # Main Web App
+│   ├── packages/
+│   │   ├── ui/                   # Shared UI Components
+│   │   ├── user/                 # User Domain
+│   │   ├── product/              # Product Domain
+│   │   ├── trade/                # Trade Domain
+│   │   └── auction/              # Auction Domain
+│   └── pnpm-workspace.yaml
+├── .trae/
+│   ├── documents/                # Architecture plans
+│   └── specs/                    # Specifications
 └── README.md
+```
+
+## Architecture v4.0 - Platform with SPI
+
+### Core Concept: Business Identity
+```
+{Country}.{Mode}
+
+Examples:
+CN.normal  - China Normal Trading
+ID.normal  - Indonesia Normal Trading
+US.normal  - US Normal Trading
+CN.preSale - China Pre-Sale
+CN.auction - China Live Auction
+```
+
+### SPI Extension Framework
+
+#### Extension Points
+- **ProductExtension**: Product type extension, price calculation
+- **TradeExtension**: Order creation, payment processing
+- **I18nExtension**: Multi-language, currency formatting
+- **PaymentExtension**: Payment gateway integration
+
+#### Directory Structure
+```
+common/go/pkg/
+├── identity/         # Business Identity
+│   ├── identity.go   # BusinessIdentity struct
+│   └── resolver.go   # Identity resolver
+└── spi/
+    ├── extension.go  # Extension point interfaces
+    ├── registry.go   # Extension registry
+    ├── loader.go     # Extension loader
+    └── usage_demo.go # Complete usage example
 ```
 
 ## Features
 
 ### User Authentication
-- User registration
-- User login
+- User registration & login
 - JWT Token authentication (24-hour validity)
-- Password bcrypt encryption storage
+- Password bcrypt encryption
 
 ### Merchant Management
-- Merchant registration
-- Merchant information editing
-- Merchant list query
-- Merchant detail view
+- Merchant registration & editing
+- Merchant list & detail view
 
 ### Product Management
-- Product publishing
-- Product list (public access)
-- Product details
-- Product editing
-- Product deletion
+- Product publishing & editing
+- Product list & details
 - Inventory management
+- Multi-currency support (via SPI)
 
 ### Shopping Cart
-- Add products to cart
-- Cart list
-- Modify product quantity
-- Delete cart items
+- Add/modify/delete cart items
+- Cart list view
 
 ### Order Management
-- Create orders (transaction processing)
-- Order list
-- Order details
-- Order status update
+- Create orders
+- Order list & details
+- Order status management
 - Automatic inventory deduction
-- Automatic cart clearing
+
+### Business Growth Features (via SPI Extensions)
+- **ID Market**: Bahasa Indonesia, IDR currency, Midtrans/Doku payment
+- **US Market**: English (US), USD currency, Stripe/PayPal payment, Sales Tax
+- **Pre-Sale**: Deposit + balance payment mode
+- **Live Auction**: Real-time bidding, WebSocket support
 
 ## Quick Start
 
 ### Backend Startup
 
+#### Start API Gateway
 ```bash
-cd backend
-go build -o bin/server ./cmd/server
-./bin/server
+cd domain-services/api-gateway
+go run cmd/server/main.go
 ```
+API Gateway starts at `http://localhost:8080`
 
-The backend service will start at `http://localhost:8080`
+#### Start Microservices (Legacy, Ports 8081-8084)
+```bash
+# User Service (Port 8081)
+cd domain-services/user-service
+go run cmd/server/main.go
+
+# Product Service (Port 8082)
+cd domain-services/product-service
+go run cmd/server/main.go
+
+# Trade Service (Port 8083)
+cd domain-services/trade-service
+go run cmd/server/main.go
+
+# Auction Service (Port 8084)
+cd domain-services/auction-service
+go run cmd/server/main.go
+```
 
 ### Frontend Startup
 
 ```bash
 cd frontend
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
+Frontend dev server starts at `http://localhost:5173`
 
-The frontend development server will start at `http://localhost:5173`
+## SPI Framework Usage Example
+
+```go
+import (
+    "ecommerce/common/pkg/identity"
+    "ecommerce/common/pkg/spi"
+)
+
+// 1. Initialize SPI
+registry := spi.NewExtensionRegistry()
+loader := spi.NewExtensionLoader(registry)
+
+// 2. Load extensions
+loader.LoadExtensions(
+    id_market.InitIDMarket,
+    us_market.InitUSMarket,
+    pre_sale.InitPreSale,
+    auction.InitAuction,
+)
+
+// 3. Use extension for specific business identity
+id := identity.NewBusinessIdentity(identity.CountryCN, identity.ModePreSale)
+if productExt, ok := loader.GetProductExtension(id); ok {
+    price, _ := productExt.CalculatePrice(ctx, product, id)
+}
+```
 
 ## API Documentation
 
@@ -125,7 +211,7 @@ The frontend development server will start at `http://localhost:5173`
 - `POST /api/merchants` - Create merchant
 - `GET /api/merchants` - Get merchant list
 - `GET /api/merchants/:id` - Get merchant details
-- `PUT /api/merchants/:id` - Update merchant information
+- `PUT /api/merchants/:id` - Update merchant
 
 #### Product Management
 - `POST /api/products` - Create product
@@ -133,7 +219,7 @@ The frontend development server will start at `http://localhost:5173`
 - `DELETE /api/products/:id` - Delete product
 
 #### Shopping Cart
-- `POST /api/cart` - Add product to cart
+- `POST /api/cart` - Add to cart
 - `GET /api/cart` - Get cart
 - `PUT /api/cart/:id` - Update cart item
 - `DELETE /api/cart/:id` - Delete cart item
@@ -144,72 +230,41 @@ The frontend development server will start at `http://localhost:5173`
 - `GET /api/orders/:id` - Get order details
 - `PUT /api/orders/:id/status` - Update order status
 
+#### Auction Endpoints
+- `GET /api/auctions` - Get auction list
+- `GET /api/auctions/:id` - Get auction details
+- `POST /api/auctions` - Create auction
+- `POST /api/auctions/:id/bid` - Place bid
+- `WebSocket /api/ws/auctions/:id` - Real-time bidding
+
 ## Database Schema
 
-### users (User Table)
-- id: Primary key
-- username: Username (unique)
-- password: Password (encrypted)
-- created_at: Creation time
-- updated_at: Update time
-- deleted_at: Deletion time (soft delete)
+### Core Tables
+- **users**: User accounts
+- **merchants**: Merchant profiles
+- **products**: Product information
+- **product_prices**: Multi-currency prices
+- **carts**: Shopping cart
+- **orders**: Orders
+- **order_items**: Order items
 
-### merchants (Merchant Table)
-- id: Primary key
-- user_id: User ID (foreign key)
-- name: Merchant name
-- description: Merchant description
-- created_at: Creation time
-- updated_at: Update time
-- deleted_at: Deletion time (soft delete)
-
-### products (Product Table)
-- id: Primary key
-- merchant_id: Merchant ID (foreign key)
-- name: Product name
-- description: Product description
-- price: Product price
-- stock: Inventory quantity
-- created_at: Creation time
-- updated_at: Update time
-- deleted_at: Deletion time (soft delete)
-
-### carts (Shopping Cart Table)
-- id: Primary key
-- user_id: User ID (foreign key)
-- product_id: Product ID (foreign key)
-- quantity: Quantity
-- created_at: Creation time
-- updated_at: Update time
-- deleted_at: Deletion time (soft delete)
-
-### orders (Order Table)
-- id: Primary key
-- user_id: User ID (foreign key)
-- total_amount: Order total amount
-- status: Order status
-- created_at: Creation time
-- updated_at: Update time
-- deleted_at: Deletion time (soft delete)
-
-### order_items (Order Item Table)
-- id: Primary key
-- order_id: Order ID (foreign key)
-- product_id: Product ID (foreign key)
-- quantity: Quantity
-- price: Product unit price
-- created_at: Creation time
-- updated_at: Update time
-- deleted_at: Deletion time (soft delete)
+### Extension Tables (Optional)
+- **auctions**: Auction information
+- **bids**: Bid records
 
 ## Development Notes
 
-- Backend uses Hertz framework with GORM for data persistence
-- Frontend uses React + Ant Design with React Router for routing
-- Uses JWT for identity authentication with 24-hour token validity
-- Passwords are encrypted and stored using bcrypt
-- Transaction processing is used when creating orders to ensure data consistency
-- Supports CORS cross-origin requests
+### Platform v4.0 Migration
+- Legacy services continue on ports 8081-8084
+- New platform services planned for ports 9081-9083
+- SPI extensions enable business feature isolation
+- Smooth migration with backward compatibility
+
+### SPI Extension Development
+1. Implement extension point interface
+2. Provide `Init*()` registration function
+3. Register extension with business identity
+4. Load extension in platform service
 
 ## License
 

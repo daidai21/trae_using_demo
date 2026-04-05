@@ -150,6 +150,14 @@
 ```
 trae_using_demo/
 ├── domain-services/              # 微服务目录
+│   ├── common/                 # 共享代码库（原shared）
+│   │   ├── go/
+│   │   │   ├── pkg/
+│   │   │   │   ├── response/  # 统一响应格式
+│   │   │   │   ├── utils/     # 工具函数
+│   │   │   │   └── constants/ # 常量定义
+│   │   │   └── go.mod
+│   │   └── proto/             # 服务间通信定义（可选）
 │   ├── api-gateway/            # API网关
 │   │   ├── cmd/gateway/
 │   │   │   └── main.go
@@ -192,14 +200,6 @@ trae_using_demo/
 │       │   └── model/
 │       ├── pkg/
 │       └── go.mod
-├── shared/                     # 共享代码库
-│   ├── go/
-│   │   ├── pkg/
-│   │   │   ├── response/      # 统一响应格式
-│   │   │   ├── utils/         # 工具函数
-│   │   │   └── constants/     # 常量定义
-│   │   └── go.mod
-│   └── proto/                 # 服务间通信定义（可选）
 └── docs/                       # 文档
 ```
 
@@ -551,10 +551,10 @@ trae_using_demo/
 
 ### 阶段二：后端微服务改造
 
-1. 创建shared共享代码库
+1. 创建domain-services/common共享代码库
 2. 拆分user-service
 3. 拆分product-service
-4. 拆分order-service
+4. 拆分trade-service
 5. 实现api-gateway
 6. 后端联调测试
 
@@ -608,9 +608,9 @@ trae_using_demo/
 ## 七、交付物
 
 1. ✅ 架构升级计划文档
-2. 后端微服务代码（4个服务）
+2. 后端微服务代码（4个服务 + common共享库）
 3. 前端Monorepo代码（4个packages + 1个app）
-4. shared共享代码库
+4. domain-services/common共享代码库
 5. 更新的README文档
 6. 架构升级指南
 

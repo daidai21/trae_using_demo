@@ -1,95 +1,95 @@
-# 电商交易平台
+# E-Commerce Platform
 
-一个从0到1开发的完整电商交易平台，采用前后端分离架构。
+A complete e-commerce trading platform developed from scratch, adopting a frontend-backend separated architecture.
 
-## 技术栈
+## Tech Stack
 
-### 后端
-- **语言**: Golang
-- **Web框架**: Hertz
+### Backend
+- **Language**: Golang
+- **Web Framework**: Hertz
 - **ORM**: GORM
-- **数据库**: SQLite
-- **认证**: JWT
-- **密码加密**: bcrypt
+- **Database**: SQLite
+- **Authentication**: JWT
+- **Password Encryption**: bcrypt
 
-### 前端
-- **框架**: React 18
-- **UI组件库**: Ant Design 5
-- **路由**: React Router v6
-- **HTTP客户端**: Axios
-- **构建工具**: Vite
-- **语言**: TypeScript
+### Frontend
+- **Framework**: React 18
+- **UI Component Library**: Ant Design 5
+- **Routing**: React Router v6
+- **HTTP Client**: Axios
+- **Build Tool**: Vite
+- **Language**: TypeScript
 
-## 项目结构
+## Project Structure
 
 ```
 trae_using_demo/
-├── backend/              # 后端服务
-│   ├── cmd/             # 应用入口
+├── backend/              # Backend service
+│   ├── cmd/             # Application entry point
 │   │   └── server/
-│   ├── internal/        # 内部代码
-│   │   ├── handler/     # HTTP处理器
-│   │   ├── service/     # 业务逻辑层
-│   │   ├── repository/  # 数据访问层
-│   │   ├── model/       # 数据模型
-│   │   └── middleware/  # 中间件
-│   ├── pkg/             # 公共包
-│   │   ├── response/    # 统一响应格式
-│   │   └── utils/       # 工具函数
-│   ├── bin/             # 编译输出
+│   ├── internal/        # Internal code
+│   │   ├── handler/     # HTTP handlers
+│   │   ├── service/     # Business logic layer
+│   │   ├── repository/  # Data access layer
+│   │   ├── model/       # Data models
+│   │   └── middleware/  # Middleware
+│   ├── pkg/             # Public packages
+│   │   ├── response/    # Unified response format
+│   │   └── utils/       # Utility functions
+│   ├── bin/             # Compiled output
 │   └── go.mod
-├── frontend/            # 前端应用
+├── frontend/            # Frontend application
 │   ├── src/
-│   │   ├── components/  # 公共组件
-│   │   ├── pages/       # 页面组件
-│   │   ├── services/    # API服务
-│   │   ├── store/       # 状态管理
-│   │   ├── types/       # TypeScript类型
+│   │   ├── components/  # Public components
+│   │   ├── pages/       # Page components
+│   │   ├── services/    # API services
+│   │   ├── store/       # State management
+│   │   ├── types/       # TypeScript types
 │   │   ├── App.tsx
 │   │   └── main.tsx
 │   └── package.json
 └── README.md
 ```
 
-## 功能特性
+## Features
 
-### 用户认证
-- 用户注册
-- 用户登录
-- JWT Token认证（有效期24小时）
-- 密码bcrypt加密存储
+### User Authentication
+- User registration
+- User login
+- JWT Token authentication (24-hour validity)
+- Password bcrypt encryption storage
 
-### 商家管理
-- 商家入驻
-- 商家信息编辑
-- 商家列表查询
-- 商家详情查看
+### Merchant Management
+- Merchant registration
+- Merchant information editing
+- Merchant list query
+- Merchant detail view
 
-### 商品管理
-- 商品发布
-- 商品列表（公开访问）
-- 商品详情
-- 商品编辑
-- 商品删除
-- 库存管理
+### Product Management
+- Product publishing
+- Product list (public access)
+- Product details
+- Product editing
+- Product deletion
+- Inventory management
 
-### 购物车
-- 添加商品到购物车
-- 购物车列表
-- 修改商品数量
-- 删除购物车商品
+### Shopping Cart
+- Add products to cart
+- Cart list
+- Modify product quantity
+- Delete cart items
 
-### 订单管理
-- 创建订单（事务处理）
-- 订单列表
-- 订单详情
-- 订单状态更新
-- 库存自动扣减
-- 购物车自动清空
+### Order Management
+- Create orders (transaction processing)
+- Order list
+- Order details
+- Order status update
+- Automatic inventory deduction
+- Automatic cart clearing
 
-## 快速开始
+## Quick Start
 
-### 后端启动
+### Backend Startup
 
 ```bash
 cd backend
@@ -97,9 +97,9 @@ go build -o bin/server ./cmd/server
 ./bin/server
 ```
 
-后端服务将在 `http://localhost:8080` 启动
+The backend service will start at `http://localhost:8080`
 
-### 前端启动
+### Frontend Startup
 
 ```bash
 cd frontend
@@ -107,110 +107,110 @@ npm install
 npm run dev
 ```
 
-前端开发服务器将在 `http://localhost:5173` 启动
+The frontend development server will start at `http://localhost:5173`
 
-## API接口文档
+## API Documentation
 
-### 认证接口
-- `POST /api/auth/register` - 用户注册
-- `POST /api/auth/login` - 用户登录
+### Authentication Endpoints
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
 
-### 商品接口（公开）
-- `GET /api/products` - 获取商品列表
-- `GET /api/products/:id` - 获取商品详情
+### Product Endpoints (Public)
+- `GET /api/products` - Get product list
+- `GET /api/products/:id` - Get product details
 
-### 需要认证的接口
+### Authenticated Endpoints
 
-#### 商家管理
-- `POST /api/merchants` - 创建商家
-- `GET /api/merchants` - 获取商家列表
-- `GET /api/merchants/:id` - 获取商家详情
-- `PUT /api/merchants/:id` - 更新商家信息
+#### Merchant Management
+- `POST /api/merchants` - Create merchant
+- `GET /api/merchants` - Get merchant list
+- `GET /api/merchants/:id` - Get merchant details
+- `PUT /api/merchants/:id` - Update merchant information
 
-#### 商品管理
-- `POST /api/products` - 创建商品
-- `PUT /api/products/:id` - 更新商品
-- `DELETE /api/products/:id` - 删除商品
+#### Product Management
+- `POST /api/products` - Create product
+- `PUT /api/products/:id` - Update product
+- `DELETE /api/products/:id` - Delete product
 
-#### 购物车
-- `POST /api/cart` - 添加商品到购物车
-- `GET /api/cart` - 获取购物车
-- `PUT /api/cart/:id` - 更新购物车商品
-- `DELETE /api/cart/:id` - 删除购物车商品
+#### Shopping Cart
+- `POST /api/cart` - Add product to cart
+- `GET /api/cart` - Get cart
+- `PUT /api/cart/:id` - Update cart item
+- `DELETE /api/cart/:id` - Delete cart item
 
-#### 订单管理
-- `POST /api/orders` - 创建订单
-- `GET /api/orders` - 获取订单列表
-- `GET /api/orders/:id` - 获取订单详情
-- `PUT /api/orders/:id/status` - 更新订单状态
+#### Order Management
+- `POST /api/orders` - Create order
+- `GET /api/orders` - Get order list
+- `GET /api/orders/:id` - Get order details
+- `PUT /api/orders/:id/status` - Update order status
 
-## 数据库表结构
+## Database Schema
 
-### users（用户表）
-- id: 主键
-- username: 用户名（唯一）
-- password: 密码（加密）
-- created_at: 创建时间
-- updated_at: 更新时间
-- deleted_at: 删除时间（软删除）
+### users (User Table)
+- id: Primary key
+- username: Username (unique)
+- password: Password (encrypted)
+- created_at: Creation time
+- updated_at: Update time
+- deleted_at: Deletion time (soft delete)
 
-### merchants（商家表）
-- id: 主键
-- user_id: 用户ID（外键）
-- name: 商家名称
-- description: 商家描述
-- created_at: 创建时间
-- updated_at: 更新时间
-- deleted_at: 删除时间（软删除）
+### merchants (Merchant Table)
+- id: Primary key
+- user_id: User ID (foreign key)
+- name: Merchant name
+- description: Merchant description
+- created_at: Creation time
+- updated_at: Update time
+- deleted_at: Deletion time (soft delete)
 
-### products（商品表）
-- id: 主键
-- merchant_id: 商家ID（外键）
-- name: 商品名称
-- description: 商品描述
-- price: 商品价格
-- stock: 库存数量
-- created_at: 创建时间
-- updated_at: 更新时间
-- deleted_at: 删除时间（软删除）
+### products (Product Table)
+- id: Primary key
+- merchant_id: Merchant ID (foreign key)
+- name: Product name
+- description: Product description
+- price: Product price
+- stock: Inventory quantity
+- created_at: Creation time
+- updated_at: Update time
+- deleted_at: Deletion time (soft delete)
 
-### carts（购物车表）
-- id: 主键
-- user_id: 用户ID（外键）
-- product_id: 商品ID（外键）
-- quantity: 数量
-- created_at: 创建时间
-- updated_at: 更新时间
-- deleted_at: 删除时间（软删除）
+### carts (Shopping Cart Table)
+- id: Primary key
+- user_id: User ID (foreign key)
+- product_id: Product ID (foreign key)
+- quantity: Quantity
+- created_at: Creation time
+- updated_at: Update time
+- deleted_at: Deletion time (soft delete)
 
-### orders（订单表）
-- id: 主键
-- user_id: 用户ID（外键）
-- total_amount: 订单总金额
-- status: 订单状态
-- created_at: 创建时间
-- updated_at: 更新时间
-- deleted_at: 删除时间（软删除）
+### orders (Order Table)
+- id: Primary key
+- user_id: User ID (foreign key)
+- total_amount: Order total amount
+- status: Order status
+- created_at: Creation time
+- updated_at: Update time
+- deleted_at: Deletion time (soft delete)
 
-### order_items（订单项表）
-- id: 主键
-- order_id: 订单ID（外键）
-- product_id: 商品ID（外键）
-- quantity: 数量
-- price: 商品单价
-- created_at: 创建时间
-- updated_at: 更新时间
-- deleted_at: 删除时间（软删除）
+### order_items (Order Item Table)
+- id: Primary key
+- order_id: Order ID (foreign key)
+- product_id: Product ID (foreign key)
+- quantity: Quantity
+- price: Product unit price
+- created_at: Creation time
+- updated_at: Update time
+- deleted_at: Deletion time (soft delete)
 
-## 开发说明
+## Development Notes
 
-- 后端使用Hertz框架，GORM进行数据持久化
-- 前端使用React + Ant Design，React Router进行路由管理
-- 使用JWT进行身份认证，Token有效期24小时
-- 密码使用bcrypt加密存储
-- 创建订单时使用事务处理，确保数据一致性
-- 支持CORS跨域请求
+- Backend uses Hertz framework with GORM for data persistence
+- Frontend uses React + Ant Design with React Router for routing
+- Uses JWT for identity authentication with 24-hour token validity
+- Passwords are encrypted and stored using bcrypt
+- Transaction processing is used when creating orders to ensure data consistency
+- Supports CORS cross-origin requests
 
-## 许可证
+## License
 
 MIT License

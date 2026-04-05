@@ -3,12 +3,14 @@ package main
 import (
 	"context"
 	"log"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
 	"ecommerce/api-gateway/internal/proxy"
+	"ecommerce/common/pkg/identity"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -20,16 +22,37 @@ func main() {
 	tradeProxy := proxy.NewProxy("http://localhost:8083")
 	auctionProxy := proxy.NewProxy("http://localhost:8084")
 
+	platformUserProxy := proxy.NewProxy("http://localhost:9081")
+	platformProductProxy := proxy.NewProxy("http://localhost:9082")
+	platformTradeProxy := proxy.NewProxy("http://localhost:9083")
+
+	resolver := identity.NewDefaultIdentityResolver()
+
 	h := server.Default(server.WithHostPorts(":8080"))
 
 	h.Use(func(ctx context.Context, c *app.RequestContext) {
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Business-Identity")
 		if string(c.Method()) == "OPTIONS" {
 			c.AbortWithStatus(200)
 			return
 		}
+
+		req := &http.Request{
+			Header: make(http.Header),
+			URL:    c.Request.URI(),
+		}
+		c.Request.Header.VisitAll(func(key, value []byte) {
+			req.Header.Add(string(key), string(value))
+		})
+
+		bizIdentity, _ := resolver.Resolve(ctx, req)
+		if bizIdentity != nil {
+			c.Set("business_identity", bizIdentity)
+			log.Printf("Business identity: %s", bizIdentity.String())
+		}
+
 		c.Next(ctx)
 	})
 
@@ -98,6 +121,6 @@ func main() {
 		}
 	}()
 
-	log.Println("API gateway starting on :8080")
+	log.Println("API gateway (platform v4.0) starting on :8080")
 	h.Spin()
 }

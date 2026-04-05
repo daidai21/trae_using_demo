@@ -1,6 +1,6 @@
 # 电商交易平台 - 实现计划（分解和优先级任务列表）
 
-## [ ] Task 1: 项目初始化 - 创建目录结构和配置文件
+## [x] Task 1: 项目初始化 - 创建目录结构和配置文件
 - **Priority**: P0
 - **Depends On**: None
 - **Description**: 
@@ -15,7 +15,7 @@
   - `programmatic` TR-1.3: frontend/package.json 文件存在且包含基础依赖
 - **Notes**: 使用Vite创建React项目以获得更好的开发体验
 
-## [ ] Task 2: 后端开发 - 数据库模型和初始化
+## [x] Task 2: 后端开发 - 数据库模型和初始化
 - **Priority**: P0
 - **Depends On**: Task 1
 - **Description**: 
@@ -29,7 +29,7 @@
   - `programmatic` TR-2.3: 运行迁移后所有表成功创建
 - **Notes**: 使用GORM的AutoMigrate功能
 
-## [ ] Task 3: 后端开发 - 用户认证API
+## [x] Task 3: 后端开发 - 用户认证API
 - **Priority**: P0
 - **Depends On**: Task 2
 - **Description**: 
@@ -45,7 +45,7 @@
   - `programmatic` TR-3.4: 密码已加密存储
 - **Notes**: Token有效期设置为24小时
 
-## [ ] Task 4: 后端开发 - 商家管理API
+## [x] Task 4: 后端开发 - 商家管理API
 - **Priority**: P0
 - **Depends On**: Task 3
 - **Description**: 
@@ -61,7 +61,7 @@
   - `programmatic` TR-4.4: 商家更新接口正确修改信息
 - **Notes**: 需要JWT认证
 
-## [ ] Task 5: 后端开发 - 商品管理API
+## [x] Task 5: 后端开发 - 商品管理API
 - **Priority**: P0
 - **Depends On**: Task 4
 - **Description**: 
@@ -78,7 +78,7 @@
   - `programmatic` TR-5.4: 商品更新和删除接口正常工作
 - **Notes**: 商品关联到商家
 
-## [ ] Task 6: 后端开发 - 购物车API
+## [x] Task 6: 后端开发 - 购物车API
 - **Priority**: P0
 - **Depends On**: Task 5
 - **Description**: 
@@ -93,7 +93,7 @@
   - `programmatic` TR-6.3: 修改数量和删除功能正常
 - **Notes**: 需要JWT认证，购物车按用户隔离
 
-## [ ] Task 7: 后端开发 - 订单管理API
+## [x] Task 7: 后端开发 - 订单管理API
 - **Priority**: P0
 - **Depends On**: Task 6
 - **Description**: 
@@ -109,7 +109,7 @@
   - `programmatic` TR-7.4: 订单状态更新正常
 - **Notes**: 创建订单时需要事务处理
 
-## [ ] Task 8: 后端开发 - CORS和错误处理
+## [x] Task 8: 后端开发 - CORS和错误处理
 - **Priority**: P1
 - **Depends On**: Task 3
 - **Description**: 

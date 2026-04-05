@@ -260,26 +260,49 @@ trae_using_demo/
 
 ### 3.1 Monorepo结构
 
-使用pnpm workspaces实现Monorepo：
+使用pnpm workspaces实现Monorepo，按业务领域划分模块：
 
 ```
 trae_using_demo/
 ├── apps/                      # 应用目录
 │   └── web/                  # 主Web应用
 │       ├── src/
+│       │   ├── routes/       # 路由配置
+│       │   ├── App.tsx
+│       │   └── main.tsx
 │       ├── package.json
 │       └── vite.config.ts
-├── packages/                  # 包目录
+├── packages/                  # 包目录（按业务域划分）
 │   ├── ui/                   # 共享UI组件库
 │   │   ├── src/
+│   │   │   ├── components/
+│   │   │   ├── hooks/
+│   │   │   └── utils/
 │   │   └── package.json
-│   ├── auth/                 # 用户认证模块
+│   ├── user/                 # 用户域（对应用户服务）
 │   │   ├── src/
+│   │   │   ├── components/
+│   │   │   ├── hooks/
+│   │   │   ├── services/
+│   │   │   └── types/
 │   │   └── package.json
-│   ├── product/              # 商品商家模块
+│   ├── product/              # 商品域（对应商家商品服务）
 │   │   ├── src/
+│   │   │   ├── components/
+│   │   │   ├── hooks/
+│   │   │   ├── services/
+│   │   │   └── types/
 │   │   └── package.json
-│   └── order/                # 订单购物车模块
+│   ├── trade/                # 交易域（对应交易服务）
+│   │   ├── src/
+│   │   │   ├── cart/         # 购物车子域
+│   │   │   ├── buy/          # 购买子域
+│   │   │   ├── order/        # 订单子域
+│   │   │   ├── hooks/
+│   │   │   ├── services/
+│   │   │   └── types/
+│   │   └── package.json
+│   └── guide/                # 导购域（V2.0预留，对应导购服务）
 │       ├── src/
 │       └── package.json
 ├── package.json
@@ -287,60 +310,235 @@ trae_using_demo/
 └── pnpm-lock.yaml
 ```
 
-### 3.2 模块划分
+### 3.2 模块划分（按业务域对齐后端）
 
-#### 3.2.1 packages/auth (用户认证模块)
+#### 3.2.1 packages/user (用户域 - 对应用户服务)
 
+- **对应后端微服务**: user-service (8081)
 - **职责**:
   - 登录/注册页面
   - 认证状态管理
   - 用户信息管理
+  - 个人中心
+- **内部结构**:
+  ```
+  user/
+  ├── src/
+  │   ├── components/
+  │   │   ├── LoginForm.tsx
+  │   │   ├── RegisterForm.tsx
+  │   │   └── UserProfile.tsx
+  │   ├── hooks/
+  │   │   └── useAuth.ts
+  │   ├── services/
+  │   │   └── authService.ts
+  │   └── types/
+  │       └── index.ts
+  ```
 - **导出**:
   - 组件: LoginForm, RegisterForm, UserProfile
   - Hooks: useAuth
   - Services: authService
+  - Types: User, LoginRequest, RegisterRequest, AuthResponse
 
-#### 3.2.2 packages/product (商品商家模块)
+#### 3.2.2 packages/product (商品域 - 对应商家商品服务)
 
+- **对应后端微服务**: product-service (8082)
 - **职责**:
-  - 商品列表
-  - 商品详情
+  - 商品列表（首页）
+  - 商品详情（PDP）
   - 商家管理
-  - 商品发布
+  - 商品发布/编辑
+  - 库存管理
+- **内部结构**:
+  ```
+  product/
+  ├── src/
+  │   ├── components/
+  │   │   ├── ProductList.tsx
+  │   │   ├── ProductCard.tsx
+  │   │   ├── ProductDetail.tsx
+  │   │   ├── MerchantList.tsx
+  │   │   ├── MerchantDetail.tsx
+  │   │   ├── ProductForm.tsx
+  │   │   └── MerchantForm.tsx
+  │   ├── hooks/
+  │   │   ├── useProducts.ts
+  │   │   ├── useProduct.ts
+  │   │   ├── useMerchants.ts
+  │   │   └── useMerchant.ts
+  │   ├── services/
+  │   │   ├── productService.ts
+  │   │   └── merchantService.ts
+  │   └── types/
+  │       └── index.ts
+  ```
 - **导出**:
-  - 组件: ProductList, ProductDetail, MerchantList, ProductForm
-  - Hooks: useProducts, useMerchants
+  - 组件: ProductList, ProductCard, ProductDetail, MerchantList, MerchantDetail, ProductForm, MerchantForm
+  - Hooks: useProducts, useProduct, useMerchants, useMerchant
   - Services: productService, merchantService
+  - Types: Product, Merchant, ProductFormData, MerchantFormData
 
-#### 3.2.3 packages/order (订单购物车模块)
+#### 3.2.3 packages/trade (交易域 - 对应交易服务)
 
-- **职责**:
-  - 购物车
-  - 订单列表
-  - 订单详情
+- **对应后端微服务**: trade-service (8083)
+- **职责**（按子域细分）:
+
+  **cart 购物车子域**
+  - 购物车列表页面
+  - 添加商品到购物车
+  - 修改购物车商品数量
+  - 删除购物车商品
+
+  **buy 购买子域**
+  - 确认订单页面
+  - 提交订单
+  - 订单创建成功页面
+
+  **order 订单子域**
+  - 订单列表页面
+  - 订单详情页面
+  - 订单状态展示
+  - 订单操作（取消、确认收货等）
+
+- **内部结构**:
+  ```
+  trade/
+  ├── src/
+  │   ├── cart/               # 购物车子域
+  │   │   ├── components/
+  │   │   │   ├── CartList.tsx
+  │   │   │   ├── CartItem.tsx
+  │   │   │   └── AddToCartButton.tsx
+  │   │   ├── hooks/
+  │   │   │   └── useCart.ts
+  │   │   └── services/
+  │   │       └── cartService.ts
+  │   ├── buy/                # 购买子域
+  │   │   ├── components/
+  │   │   │   ├── CheckoutPage.tsx
+  │   │   │   ├── OrderConfirm.tsx
+  │   │   │   └── OrderSuccess.tsx
+  │   │   ├── hooks/
+  │   │   │   └── useBuy.ts
+  │   │   └── services/
+  │   │       └── buyService.ts
+  │   ├── order/              # 订单子域
+  │   │   ├── components/
+  │   │   │   ├── OrderList.tsx
+  │   │   │   ├── OrderItem.tsx
+  │   │   │   ├── OrderDetail.tsx
+  │   │   │   └── OrderStatusBadge.tsx
+  │   │   ├── hooks/
+  │   │   │   ├── useOrders.ts
+  │   │   │   └── useOrder.ts
+  │   │   └── services/
+  │   │       └── orderService.ts
+  │   ├── hooks/
+  │   ├── services/
+  │   └── types/
+  │       └── index.ts
+  ```
 - **导出**:
-  - 组件: Cart, OrderList, OrderDetail
-  - Hooks: useCart, useOrders
-  - Services: cartService, orderService
+  - cart子域: CartList, CartItem, AddToCartButton, useCart, cartService
+  - buy子域: CheckoutPage, OrderConfirm, OrderSuccess, useBuy, buyService
+  - order子域: OrderList, OrderItem, OrderDetail, OrderStatusBadge, useOrders, useOrder, orderService
+  - Types: CartItem, Order, OrderItem, CheckoutRequest
 
 #### 3.2.4 packages/ui (共享UI组件库)
 
 - **职责**:
   - 基础布局组件
   - 通用业务组件
-  - 工具函数
+  - 工具函数和常量
+  - API客户端配置
+- **内部结构**:
+  ```
+  ui/
+  ├── src/
+  │   ├── components/
+  │   │   ├── Layout.tsx
+  │   │   ├── Navbar.tsx
+  │   │   ├── Footer.tsx
+  │   │   ├── Loading.tsx
+  │   │   ├── ErrorBoundary.tsx
+  │   │   ├── EmptyState.tsx
+  │   │   └── PriceTag.tsx
+  │   ├── hooks/
+  │   │   ├── useApi.ts
+  │   │   └── useNotification.ts
+  │   └── utils/
+  │       ├── apiClient.ts
+  │       ├── constants.ts
+  │       └── formatters.ts
+  ```
 - **导出**:
-  - 组件: Layout, Navbar, ProductCard, Loading, ErrorBoundary
+  - 组件: Layout, Navbar, Footer, Loading, ErrorBoundary, EmptyState, PriceTag
   - Hooks: useApi, useNotification
-  - Utils: apiClient, constants
+  - Utils: apiClient, constants, formatters
 
 #### 3.2.5 apps/web (主应用)
 
 - **职责**:
-  - 路由配置
-  - 模块整合
+  - 路由配置和整合
+  - 各业务模块的页面组装
   - 全局状态管理
   - 应用入口
+- **路由配置**（按业务域组织）:
+  ```
+  /                    # 首页（商品列表）
+  /login               # 登录页
+  /register            # 注册页
+  /products            # 商品列表
+  /products/:id        # 商品详情
+  /merchants           # 商家列表
+  /merchants/:id       # 商家详情
+  /merchant/form       # 商家入驻/编辑
+  /product/form        # 商品发布/编辑
+  /cart                # 购物车
+  /checkout            # 确认订单
+  /orders              # 订单列表
+  /orders/:id          # 订单详情
+  /profile             # 个人中心
+  ```
+
+---
+
+### 3.3 扩展模块（V2.0预留）
+
+#### 3.3.1 packages/guide (导购域 - 对应导购服务)
+
+- **对应后端微服务**: guide-service
+- **职责**:
+  - 商品搜索
+  - 商品推荐
+  - 商城首页聚合
+  - 商品分类导航
+
+#### 3.3.2 packages/marketing (营销域 - 对应营销服务)
+
+- **对应后端微服务**: marketing-service
+- **职责**:
+  - 优惠券展示和领取
+  - 满减活动
+  - 秒杀活动
+  - 营销活动页面
+
+#### 3.3.3 packages/payment (支付域 - 对应支付服务)
+
+- **对应后端微服务**: payment-service
+- **职责**:
+  - 支付渠道选择
+  - 支付页面
+  - 支付结果展示
+
+#### 3.3.4 packages/logistics (物流域 - 对应物流服务)
+
+- **对应后端微服务**: logistics-service
+- **职责**:
+  - 物流信息展示
+  - 物流轨迹追踪
+  - 物流单号查询
 
 ***
 

@@ -155,3 +155,40 @@ export const orderApi = {
     return res.data
   }
 }
+
+export const auctionApi = {
+  async createAuction(data: any): Promise<ApiResponse<any>> {
+    const res = await api.post('/api/auctions', data)
+    return res.data
+  },
+
+  async getAuction(id: number): Promise<ApiResponse<any>> {
+    const res = await api.get(`/api/auctions/${id}`)
+    return res.data
+  },
+
+  async getAllAuctions(): Promise<ApiResponse<any[]>> {
+    const res = await api.get('/api/auctions')
+    return res.data
+  },
+
+  async getLiveAuctions(): Promise<ApiResponse<any[]>> {
+    const res = await api.get('/api/auctions/live')
+    return res.data
+  },
+
+  async startAuction(id: number): Promise<ApiResponse<void>> {
+    const res = await api.post(`/api/auctions/${id}/start`)
+    return res.data
+  },
+
+  async placeBid(id: number, amount: number): Promise<ApiResponse<any>> {
+    const res = await api.post(`/api/auctions/${id}/bid`, { amount })
+    return res.data
+  },
+
+  async endAuction(id: number): Promise<ApiResponse<void>> {
+    const res = await api.post(`/api/auctions/${id}/end`)
+    return res.data
+  }
+}

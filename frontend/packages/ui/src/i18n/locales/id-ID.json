@@ -1,0 +1,138 @@
+{
+  "common": {
+    "save": "Simpan",
+    "cancel": "Batal",
+    "confirm": "Konfirmasi",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "submit": "Kirim",
+    "loading": "Memuat...",
+    "success": "Berhasil",
+    "error": "Kesalahan",
+    "warning": "Peringatan",
+    "search": "Cari",
+    "add": "Tambah",
+    "back": "Kembali",
+    "home": "Beranda",
+    "login": "Masuk",
+    "register": "Daftar",
+    "logout": "Keluar",
+    "profile": "Profil",
+    "cart": "Keranjang",
+    "orders": "Pesanan Saya",
+    "products": "Produk",
+    "merchants": "Pedagang"
+  },
+  "auth": {
+    "loginTitle": "Masuk Pengguna",
+    "registerTitle": "Daftar Pengguna",
+    "email": "Email",
+    "password": "Kata Sandi",
+    "confirmPassword": "Konfirmasi Kata Sandi",
+    "username": "Nama Pengguna",
+    "loginSuccess": "Login berhasil",
+    "registerSuccess": "Pendaftaran berhasil",
+    "loginFailed": "Login gagal",
+    "registerFailed": "Pendaftaran gagal",
+    "pleaseLogin": "Silakan login terlebih dahulu"
+  },
+  "product": {
+    "productList": "Daftar Produk",
+    "productDetail": "Detail Produk",
+    "createProduct": "Buat Produk",
+    "editProduct": "Edit Produk",
+    "productName": "Nama Produk",
+    "description": "Deskripsi",
+    "price": "Harga",
+    "stock": "Stok",
+    "category": "Kategori",
+    "images": "Gambar Produk",
+    "type": {
+      "normal": "Normal",
+      "preSale": "Pra-Jual",
+      "auction": "Lelang"
+    },
+    "preSale": {
+      "title": "Produk Pra-Jual",
+      "deposit": "Uang Muka",
+      "balance": "Sisa Pembayaran",
+      "preSalePrice": "Harga Pra-Jual",
+      "preSaleStart": "Mulai Pra-Jual",
+      "preSaleEnd": "Akhir Pra-Jual",
+      "balanceDue": "Jatuh Tempo"
+    },
+    "auction": {
+      "title": "Produk Lelang",
+      "startPrice": "Harga Awal",
+      "reservePrice": "Harga Reserve",
+      "bidIncrement": "Kenaikan Tawaran",
+      "duration": "Durasi",
+      "currentPrice": "Harga Saat Ini",
+      "highestBidder": "Pemenang Sementara",
+      "bidCount": "Jumlah Tawaran",
+      "timeLeft": "Waktu Tersisa",
+      "placeBid": "Tawar",
+      "yourBid": "Tawaran Anda",
+      "bidSuccess": "Tawaran berhasil",
+      "bidFailed": "Tawaran gagal"
+    }
+  },
+  "trade": {
+    "cart": "Keranjang",
+    "addToCart": "Tambah ke Keranjang",
+    "buyNow": "Beli Sekarang",
+    "checkout": "Checkout",
+    "totalAmount": "Jumlah Total",
+    "orderList": "Daftar Pesanan",
+    "orderDetail": "Detail Pesanan",
+    "orderNo": "No. Pesanan",
+    "orderStatus": "Status Pesanan",
+    "orderTime": "Waktu Pesanan",
+    "payment": "Pembayaran",
+    "paymentMethod": "Metode Pembayaran",
+    "paymentAmount": "Jumlah Pembayaran",
+    "shippingAddress": "Alamat Pengiriman",
+    "status": {
+      "pending": "Menunggu Pembayaran",
+      "paid": "Dibayar",
+      "shipped": "Dikirim",
+      "completed": "Selesai",
+      "cancelled": "Dibatalkan",
+      "pendingDeposit": "Menunggu Uang Muka",
+      "depositPaid": "Uang Muka Dibayar",
+      "pendingBalance": "Menunggu Sisa Pembayaran"
+    },
+    "preSale": {
+      "payDeposit": "Bayar Uang Muka",
+      "payBalance": "Bayar Sisa",
+      "depositPaid": "Uang Muka Dibayar",
+      "balanceReminder": "Silakan bayar sisa sebelum {time}",
+      "orderExpired": "Pesanan Kadaluarsa"
+    }
+  },
+  "merchant": {
+    "merchantList": "Daftar Pedagang",
+    "merchantDetail": "Detail Pedagang",
+    "createMerchant": "Buat Pedagang",
+    "editMerchant": "Edit Pedagang",
+    "merchantName": "Nama Pedagang",
+    "contactEmail": "Email Kontak",
+    "contactPhone": "Telepon Kontak",
+    "address": "Alamat"
+  },
+  "language": {
+    "select": "Pilih Bahasa",
+    "zhCN": "简体中文",
+    "enUS": "English",
+    "idID": "Bahasa Indonesia"
+  },
+  "currency": {
+    "CNY": "¥",
+    "USD": "$",
+    "IDR": "Rp"
+  },
+  "market": {
+    "ID": "Pasar Indonesia",
+    "US": "Pasar Amerika"
+  }
+}

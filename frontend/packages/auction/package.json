@@ -1,0 +1,21 @@
+{
+  "name": "@ecommerce/auction",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "antd": "^5.15.3",
+    "@ant-design/icons": "^5.3.5",
+    "axios": "^1.6.8",
+    "@ecommerce/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "typescript": "^5.2.2"
+  }
+}

@@ -11,7 +11,7 @@ func InitDB(dbPath string) (*gorm.DB, error) {
 		return nil, err
 	}
 
-	if err := db.AutoMigrate(&Merchant{}, &Product{}, &ProductPrice{}); err != nil {
+	if err := db.AutoMigrate(&Auction{}, &Bid{}); err != nil {
 		return nil, err
 	}
 

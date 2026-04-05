@@ -1,0 +1,138 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "delete": "删除",
+    "edit": "编辑",
+    "submit": "提交",
+    "loading": "加载中...",
+    "success": "成功",
+    "error": "错误",
+    "warning": "警告",
+    "search": "搜索",
+    "add": "添加",
+    "back": "返回",
+    "home": "首页",
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出登录",
+    "profile": "个人中心",
+    "cart": "购物车",
+    "orders": "我的订单",
+    "products": "商品",
+    "merchants": "商家"
+  },
+  "auth": {
+    "loginTitle": "用户登录",
+    "registerTitle": "用户注册",
+    "email": "邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "username": "用户名",
+    "loginSuccess": "登录成功",
+    "registerSuccess": "注册成功",
+    "loginFailed": "登录失败",
+    "registerFailed": "注册失败",
+    "pleaseLogin": "请先登录"
+  },
+  "product": {
+    "productList": "商品列表",
+    "productDetail": "商品详情",
+    "createProduct": "发布商品",
+    "editProduct": "编辑商品",
+    "productName": "商品名称",
+    "description": "商品描述",
+    "price": "价格",
+    "stock": "库存",
+    "category": "分类",
+    "images": "商品图片",
+    "type": {
+      "normal": "普通商品",
+      "preSale": "预售商品",
+      "auction": "拍卖商品"
+    },
+    "preSale": {
+      "title": "预售商品",
+      "deposit": "定金",
+      "balance": "尾款",
+      "preSalePrice": "预售价格",
+      "preSaleStart": "预售开始时间",
+      "preSaleEnd": "预售结束时间",
+      "balanceDue": "尾款支付截止时间"
+    },
+    "auction": {
+      "title": "拍卖商品",
+      "startPrice": "起拍价",
+      "reservePrice": "保留价",
+      "bidIncrement": "加价幅度",
+      "duration": "拍卖时长",
+      "currentPrice": "当前价格",
+      "highestBidder": "最高出价者",
+      "bidCount": "出价次数",
+      "timeLeft": "剩余时间",
+      "placeBid": "出价",
+      "yourBid": "您的出价",
+      "bidSuccess": "出价成功",
+      "bidFailed": "出价失败"
+    }
+  },
+  "trade": {
+    "cart": "购物车",
+    "addToCart": "加入购物车",
+    "buyNow": "立即购买",
+    "checkout": "结算",
+    "totalAmount": "总金额",
+    "orderList": "订单列表",
+    "orderDetail": "订单详情",
+    "orderNo": "订单号",
+    "orderStatus": "订单状态",
+    "orderTime": "下单时间",
+    "payment": "支付",
+    "paymentMethod": "支付方式",
+    "paymentAmount": "支付金额",
+    "shippingAddress": "收货地址",
+    "status": {
+      "pending": "待支付",
+      "paid": "已支付",
+      "shipped": "已发货",
+      "completed": "已完成",
+      "cancelled": "已取消",
+      "pendingDeposit": "待付定金",
+      "depositPaid": "已付定金",
+      "pendingBalance": "待付尾款"
+    },
+    "preSale": {
+      "payDeposit": "支付定金",
+      "payBalance": "支付尾款",
+      "depositPaid": "定金已支付",
+      "balanceReminder": "请在 {time} 前支付尾款",
+      "orderExpired": "订单已过期"
+    }
+  },
+  "merchant": {
+    "merchantList": "商家列表",
+    "merchantDetail": "商家详情",
+    "createMerchant": "创建商家",
+    "editMerchant": "编辑商家",
+    "merchantName": "商家名称",
+    "contactEmail": "联系邮箱",
+    "contactPhone": "联系电话",
+    "address": "地址"
+  },
+  "language": {
+    "select": "选择语言",
+    "zhCN": "简体中文",
+    "enUS": "English",
+    "idID": "Bahasa Indonesia"
+  },
+  "currency": {
+    "CNY": "¥",
+    "USD": "$",
+    "IDR": "Rp"
+  },
+  "market": {
+    "ID": "印度尼西亚市场",
+    "US": "美国市场"
+  }
+}

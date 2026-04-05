@@ -1,0 +1,138 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "search": "Search",
+    "add": "Add",
+    "back": "Back",
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "cart": "Cart",
+    "orders": "My Orders",
+    "products": "Products",
+    "merchants": "Merchants"
+  },
+  "auth": {
+    "loginTitle": "User Login",
+    "registerTitle": "User Registration",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "username": "Username",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "loginFailed": "Login failed",
+    "registerFailed": "Registration failed",
+    "pleaseLogin": "Please login first"
+  },
+  "product": {
+    "productList": "Product List",
+    "productDetail": "Product Detail",
+    "createProduct": "Create Product",
+    "editProduct": "Edit Product",
+    "productName": "Product Name",
+    "description": "Description",
+    "price": "Price",
+    "stock": "Stock",
+    "category": "Category",
+    "images": "Product Images",
+    "type": {
+      "normal": "Normal",
+      "preSale": "Pre-Sale",
+      "auction": "Auction"
+    },
+    "preSale": {
+      "title": "Pre-Sale Product",
+      "deposit": "Deposit",
+      "balance": "Balance",
+      "preSalePrice": "Pre-Sale Price",
+      "preSaleStart": "Pre-Sale Start",
+      "preSaleEnd": "Pre-Sale End",
+      "balanceDue": "Balance Due"
+    },
+    "auction": {
+      "title": "Auction Product",
+      "startPrice": "Start Price",
+      "reservePrice": "Reserve Price",
+      "bidIncrement": "Bid Increment",
+      "duration": "Duration",
+      "currentPrice": "Current Price",
+      "highestBidder": "Highest Bidder",
+      "bidCount": "Bid Count",
+      "timeLeft": "Time Left",
+      "placeBid": "Place Bid",
+      "yourBid": "Your Bid",
+      "bidSuccess": "Bid placed successfully",
+      "bidFailed": "Failed to place bid"
+    }
+  },
+  "trade": {
+    "cart": "Cart",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "checkout": "Checkout",
+    "totalAmount": "Total Amount",
+    "orderList": "Order List",
+    "orderDetail": "Order Detail",
+    "orderNo": "Order No",
+    "orderStatus": "Order Status",
+    "orderTime": "Order Time",
+    "payment": "Payment",
+    "paymentMethod": "Payment Method",
+    "paymentAmount": "Payment Amount",
+    "shippingAddress": "Shipping Address",
+    "status": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "shipped": "Shipped",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "pendingDeposit": "Pending Deposit",
+      "depositPaid": "Deposit Paid",
+      "pendingBalance": "Pending Balance"
+    },
+    "preSale": {
+      "payDeposit": "Pay Deposit",
+      "payBalance": "Pay Balance",
+      "depositPaid": "Deposit Paid",
+      "balanceReminder": "Please pay balance by {time}",
+      "orderExpired": "Order Expired"
+    }
+  },
+  "merchant": {
+    "merchantList": "Merchant List",
+    "merchantDetail": "Merchant Detail",
+    "createMerchant": "Create Merchant",
+    "editMerchant": "Edit Merchant",
+    "merchantName": "Merchant Name",
+    "contactEmail": "Contact Email",
+    "contactPhone": "Contact Phone",
+    "address": "Address"
+  },
+  "language": {
+    "select": "Select Language",
+    "zhCN": "简体中文",
+    "enUS": "English",
+    "idID": "Bahasa Indonesia"
+  },
+  "currency": {
+    "CNY": "¥",
+    "USD": "$",
+    "IDR": "Rp"
+  },
+  "market": {
+    "ID": "Indonesia Market",
+    "US": "US Market"
+  }
+}

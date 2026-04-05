@@ -4,6 +4,7 @@ import { Layout, useAuth } from '@ecommerce/ui'
 import { Login, Register } from '@ecommerce/user'
 import { ProductList, ProductDetail, ProductForm, MerchantList, MerchantForm } from '@ecommerce/product'
 import { Cart, OrderList, OrderDetail } from '@ecommerce/trade'
+import { AuctionList, AuctionDetail, CreateAuction } from '@ecommerce/auction'
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAuth()
@@ -55,6 +56,21 @@ const App: React.FC = () => {
         <Route path="/orders/:id" element={
           <ProtectedRoute>
             <OrderDetail />
+          </ProtectedRoute>
+        } />
+        <Route path="/auctions" element={
+          <ProtectedRoute>
+            <AuctionList />
+          </ProtectedRoute>
+        } />
+        <Route path="/auctions/create" element={
+          <ProtectedRoute>
+            <CreateAuction />
+          </ProtectedRoute>
+        } />
+        <Route path="/auctions/:id" element={
+          <ProtectedRoute>
+            <AuctionDetail />
           </ProtectedRoute>
         } />
       </Routes>

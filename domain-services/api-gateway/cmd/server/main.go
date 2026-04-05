@@ -18,6 +18,7 @@ func main() {
 	userProxy := proxy.NewProxy("http://localhost:8081")
 	productProxy := proxy.NewProxy("http://localhost:8082")
 	tradeProxy := proxy.NewProxy("http://localhost:8083")
+	auctionProxy := proxy.NewProxy("http://localhost:8084")
 
 	h := server.Default(server.WithHostPorts(":8080"))
 
@@ -70,6 +71,16 @@ func main() {
 		{
 			ordersGroup.Any("/*path", tradeProxy.Forward)
 		}
+
+		auctionsGroup := api.Group("/auctions")
+		{
+			auctionsGroup.Any("/*path", auctionProxy.Forward)
+		}
+	}
+
+	ws := h.Group("/api/ws")
+	{
+		ws.Any("/*path", auctionProxy.Forward)
 	}
 
 	quit := make(chan os.Signal, 1)

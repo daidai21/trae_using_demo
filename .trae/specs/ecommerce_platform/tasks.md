@@ -121,7 +121,7 @@
   - `programmatic` TR-8.2: 错误响应格式统一
 - **Notes**: CORS允许本地开发域名
 
-## [ ] Task 9: 前端开发 - 项目基础配置
+## [x] Task 9: 前端开发 - 项目基础配置
 - **Priority**: P0
 - **Depends On**: Task 1
 - **Description**: 
@@ -137,7 +137,7 @@
   - `programmatic` TR-9.3: Axios配置正确，包含JWT Token拦截器
 - **Notes**: 使用Context API或Zustand进行状态管理
 
-## [ ] Task 10: 前端开发 - 用户认证页面
+## [x] Task 10: 前端开发 - 用户认证页面
 - **Priority**: P0
 - **Depends On**: Task 9, Task 3
 - **Description**: 
@@ -151,7 +151,7 @@
   - `programmatic` TR-10.3: 登录/注册成功后Token正确存储
 - **Notes**: 使用Ant Design的Form组件
 
-## [ ] Task 11: 前端开发 - 商家管理页面
+## [x] Task 11: 前端开发 - 商家管理页面
 - **Priority**: P1
 - **Depends On**: Task 10, Task 4
 - **Description**: 
@@ -165,7 +165,7 @@
   - `human-judgement` TR-11.3: 商家信息编辑功能正常
 - **Notes**: 需要登录后访问
 
-## [ ] Task 12: 前端开发 - 商品管理页面
+## [x] Task 12: 前端开发 - 商品管理页面
 - **Priority**: P0
 - **Depends On**: Task 11, Task 5
 - **Description**: 
@@ -179,7 +179,7 @@
   - `human-judgement` TR-12.3: 商品发布/编辑表单功能正常
 - **Notes**: 商品列表作为首页
 
-## [ ] Task 13: 前端开发 - 购物车页面
+## [x] Task 13: 前端开发 - 购物车页面
 - **Priority**: P0
 - **Depends On**: Task 12, Task 6
 - **Description**: 
@@ -194,7 +194,7 @@
   - `human-judgement` TR-13.3: 修改数量和删除功能正常
 - **Notes**: 需要登录后访问
 
-## [ ] Task 14: 前端开发 - 订单管理页面
+## [x] Task 14: 前端开发 - 订单管理页面
 - **Priority**: P0
 - **Depends On**: Task 13, Task 7
 - **Description**: 
@@ -208,7 +208,7 @@
   - `human-judgement` TR-14.3: 订单详情页面信息完整
 - **Notes**: 需要登录后访问
 
-## [ ] Task 15: 联调与测试
+## [x] Task 15: 联调与测试
 - **Priority**: P0
 - **Depends On**: Task 8, Task 14
 - **Description**: 

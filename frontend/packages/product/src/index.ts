@@ -1,0 +1,5 @@
+export { ProductList } from './pages/ProductList'
+export { ProductDetail } from './pages/ProductDetail'
+export { ProductForm } from './pages/ProductForm'
+export { MerchantList } from './pages/MerchantList'
+export { MerchantForm } from './pages/MerchantForm'
